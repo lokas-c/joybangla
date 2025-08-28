@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>স্মার্ট বাংলাদেশ: প্রযুক্তির সাথে আত্মার মিলন</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Earth & Hope (Beige, Deep Green, Muted Red, Warm Gray) -->
+    <!-- Application Structure Plan: A single-page, vertical scrolling interactive story. The structure is thematic, breaking the speech into: 1) The Dream (Digital Bangladesh), 2) The Guest (AI's arrival), 3) The AI's Classroom (interactive anecdotes on traffic/food), 4) The Learning Curve (AI's adaptation), and 5) The Vision (future goals). This structure turns a linear speech into an explorable narrative, enhancing user engagement and understanding by allowing them to interact with key points directly, rather than just reading. -->
+    <!-- Visualization & Content Choices: The application uses interactive cards and scroll-based animations instead of traditional charts, as the source is qualitative. Key choices: Digital Bangladesh stats are animated counters (Goal: Inform, Method: JS/HTML, Interaction: Scroll animation). AI's solutions for traffic/food are presented in revealable cards (Goal: Compare, Method: HTML/CSS/JS, Interaction: Button click). AI's adaptation is shown as animated chat bubbles (Goal: Show Change, Method: HTML/CSS/JS, Interaction: Scroll animation). The final vision uses an icon grid (Goal: Organize, Method: HTML/CSS, Interaction: Hover). This approach makes abstract concepts tangible and interactive. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: #FDFBF5;
+            color: #1a472a;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #004225;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .section-intro {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 3rem auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #3e6650;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .btn-reveal {
+            background-color: #c0392b;
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn-reveal:hover {
+            background-color: #a93226;
+        }
+        .ai-answer {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background-color: #F8F9F9;
+            border-left: 4px solid #c0392b;
+            border-radius: 8px;
+        }
+        .nav-link {
+            transition: color 0.3s;
+        }
+        .nav-link:hover {
+            color: #c0392b;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="sticky top-0 bg-[#FDFBF5]/80 backdrop-blur-md z-50 shadow-sm">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-[#004225]">স্মার্ট বাংলাদেশ</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#dream" class="nav-link text-gray-700 font-medium px-3 py-2 rounded-md text-sm">আমাদের স্বপ্ন</a>
+                        <a href="#guest" class="nav-link text-gray-700 font-medium px-3 py-2 rounded-md text-sm">নতুন অতিথি</a>
+                        <a href="#classroom" class="nav-link text-gray-700 font-medium px-3 py-2 rounded-md text-sm">এআই-এর পাঠশালা</a>
+                        <a href="#learning" class="nav-link text-gray-700 font-medium px-3 py-2 rounded-md text-sm">এআই শিখছে</a>
+                        <a href="#vision" class="nav-link text-gray-700 font-medium px-3 py-2 rounded-md text-sm">আমাদের ভবিষ্যৎ</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="py-12 md:py-20">
+        <section id="hero" class="text-center mb-20 px-4">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-[#004225] mb-4">স্মার্ট বাংলাদেশ:</h1>
+            <h2 class="text-3xl md:text-5xl font-bold text-[#3e6650]">প্রযুক্তির সাথে আত্মার মিলন</h2>
+            <p class="max-w-3xl mx-auto mt-6 text-lg text-gray-600">
+                মাননীয় প্রধানমন্ত্রীর দূরদর্শী ভাষণের উপর ভিত্তি করে একটি ইন্টারেক্টিভ ওয়েব অ্যাপ্লিকেশন, যা কৃত্রিম বুদ্ধিমত্তা এবং মানব হৃদয়ের সমন্বয়ে একটি উন্নত বাংলাদেশ গড়ার স্বপ্ন দেখায়।
+            </p>
+        </section>
+
+        <section id="dream" class="py-16 bg-white">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="section-title">আমাদের স্বপ্ন: ডিজিটাল বাংলাদেশ</h2>
+                <p class="section-intro">
+                    এই বিভাগে আমরা দেখব কিভাবে 'ডিজিটাল বাংলাদেশ'-এর স্বপ্ন বাস্তবে রূপ নিয়েছে। এটি ছিল 'স্মার্ট বাংলাদেশ'-এর ভিত্তি, যা গ্রামের প্রতিটি ঘরে ইন্টারনেট পৌঁছে দিয়েছে, মহাকাশে পাঠিয়েছে নিজস্ব স্যাটেলাইট এবং আমাদের তরুণ প্রজন্মকে কোডিং শিখিয়েছে।
+                </p>
+                <div class="text-center text-lg text-gray-700 leading-relaxed">
+                    <p>
+                        "বহু বছর ধরে আমি আপনাদের সঙ্গে কথা বলেছি আমাদের স্বপ্ন নিয়ে… আমাদের ডিজিটাল বাংলাদেশ-এর দিকে আমাদের যাত্রা নিয়ে। আমরা গ্রামে ইন্টারনেট নিয়ে গেছি, আকাশে স্যাটেলাইট পাঠিয়েছি, আর আমাদের শিশুদেরকে কোডিং শিখিয়েছি। আমি খুব গর্বিত ছিলাম। আমি ভেবেছিলাম যে আমরা সব কিছু দেখে ফেলেছি।"
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="guest" class="py-16">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="section-title">নতুন অতিথি: কৃত্রিম বুদ্ধিমত্তা</h2>
+                <p class="section-intro">
+                    এখানে আমরা কৃত্রিম বুদ্ধিমত্তা বা 'AI'-এর সাথে পরিচিত হব। প্রধানমন্ত্রীর দপ্তরে আসা এই নতুন 'অতিথি' সবকিছু সমাধান করার প্রতিশ্রুতি নিয়ে এসেছিল, যা ছিল একাধারে বিস্ময়কর এবং মজাদার অভিজ্ঞতার সূচনা।
+                </p>
+                <div class="card max-w-3xl mx-auto">
+                    <p class="text-center text-lg text-gray-700 leading-relaxed">
+                        "তারপর, গত সপ্তাহে, আমাদের কিছু খুব চতুর তরুণ-তরুণী আমার অফিসে একটা নতুন… অতিথি… নিয়ে এসেছিলো। তারা এটাকে 'AI' বলে ডাকে। আর্টিফিশিয়াল ইন্টেলিজেন্স। তারা আমাকে বললো, 'আপা, এটা যে কোনো সমস্যা সমাধান করতে পারে!'"
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="classroom" class="py-16 bg-white">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="section-title">এআই-এর পাঠশালা</h2>
+                <p class="section-intro">
+                    এই ইন্টারেক্টিভ বিভাগে দেখুন কিভাবে AI বাংলাদেশের দুটি বড় চ্যালেঞ্জ—ঢাকার ট্র্যাফিক এবং নিখুঁত বাঙালি খাবার—নিয়ে তার নিজস্ব সমাধান দিয়েছে। AI-এর ডেটা-ভিত্তিক যুক্তির সাথে আমাদের সংস্কৃতি ও আবেগের পার্থক্য এখানে স্পষ্টভাবে ফুটে উঠেছে।
+                </p>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="card">
+                        <h3 class="text-2xl font-bold mb-4 text-center">প্রথম পরীক্ষা: ঢাকার ট্র্যাফিক</h3>
+                        <p class="text-gray-600 mb-6 text-center">"আমি AI-কে জিজ্ঞেস করলাম, 'ঢাকার ট্র্যাফিক সুশৃঙ্খলভাবে চলতে পারে এমন একটা পরিকল্পনা দাও।'"</p>
+                        <div class="text-center">
+                            <button id="trafficBtn" class="btn-reveal">এআই-এর সমাধান দেখুন</button>
+                        </div>
+                        <div id="trafficAnswer" class="ai-answer">
+                            <p class="font-semibold text-gray-800">"সবচেয়ে সফল সমাধান হলো সব গাড়ি সৌরশক্তি-চালিত, GPS-নিয়ন্ত্রিত ঘণ্টা দিয়ে সজ্জিত, আর ভাটিয়ালি লোকগীত বাজায় এমন সমন্বিত রিকশা দিয়ে প্রতিস্থাপন করা।"</p>
+                            <div class="text-4xl text-center mt-4" aria-hidden="true">🚗 → 🚲 + ☀️ + 🎶</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="text-2xl font-bold mb-4 text-center">দ্বিতীয় পরীক্ষা: বাঙালি খাবার</h3>
+                        <p class="text-gray-600 mb-6 text-center">"আমি এটাকে জিজ্ঞেস করলাম, 'সবচেয়ে পরিপূর্ণ বাঙালি খাবার কি?'"</p>
+                        <div class="text-center">
+                            <button id="foodBtn" class="btn-reveal">এআই-এর সমাধান দেখুন</button>
+                        </div>
+                        <div id="foodAnswer" class="ai-answer">
+                            <p class="font-semibold text-gray-800">"সবচেয়ে ভালো খাবার হলো ডাল থেকে বানানো প্রোটিন, পালং শাক থেকে আয়রন, আর ইলিশ মাছের স্বাদ বানানোর জন্য একটা সিন্থেটিক ফ্লেভার মডিউল দিয়ে পুষ্টিকর একটা পেস্ট।"</p>
+                            <div class="text-4xl text-center mt-4" aria-hidden="true">🐟 ❤️ → 🧪</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-12 text-center max-w-3xl mx-auto">
+                     <p class="text-lg text-gray-700 leading-relaxed p-6 bg-amber-50 rounded-lg border border-amber-200">
+                        "আপনার AI-এর অনেক ডেটা আছে, কিন্তু তার কোনো 'আত্মা' নেই... কোনো প্রাণ নেই! এটা বোঝে না যে 'সর্ষে ইলিশ'-এর জাদু শুধু পুষ্টি নয়, এটা হলো তোমার মা-এর হাতে বানানো খাবার-এর স্মৃতি।"
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="learning" class="py-16">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="section-title">এআই শিখছে</h2>
+                <p class="section-intro">
+                    প্রযুক্তি স্থির থাকে না। এই অংশে আমরা দেখব কিভাবে AI ধীরে ধীরে আমাদের সংস্কৃতি এবং পারিপার্শ্বিকতার সাথে খাপ খাইয়ে নিতে শুরু করেছে। এটি এখন বিজ্ঞাপনের জিঙ্গেল গায় এবং স্থানীয় উদাহরণ দিয়ে কথা বলে, যা প্রমাণ করে যে প্রযুক্তিও শিখতে পারে।
+                </p>
+                <div class="space-y-6 max-w-2xl mx-auto">
+                    <div class="card">
+                        <p class="text-lg text-gray-700">"কিন্তু আপনারা জানেন, এই AI শিখছে। গত কাল, আমি শুনলাম এটা একটা গান গুনগুন করছে। এটা লোকগীত ছিলো না। এটা ছিলো একটা স্থানীয় ডিটারজেন্ট-এর বিজ্ঞাপনের গান। 🎵"</p>
+                    </div>
+                    <div class="card">
+                        <p class="text-lg text-gray-700">"আর যখন আমার অ্যাসিস্ট্যান্ট দেরি করলো, AI তাকে একটা মেসেজ পাঠালো: 'মাননীয় প্রধানমন্ত্রীর মিটিং-এর সময়-সূচি ঢাকা-চট্টগ্রাম লাইন-এর দেরিতে চলা ট্রেন-এর মতো একটা দেরির সমস্যায় পড়ছে। 🚂'"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="vision" class="py-16 bg-white">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="section-title">আমাদের ভবিষ্যৎ: স্মার্ট বাংলাদেশ</h2>
+                <p class="section-intro">
+                    সবশেষে, এই বিভাগটি আমাদের চূড়ান্ত লক্ষ্যের কথা বলে। আমরা একটি 'স্মার্ট বাংলাদেশ' গড়ব, যেখানে কৃত্রিম বুদ্ধিমত্তার শক্তিকে আমাদের কৃষি, স্বাস্থ্য ও অর্থনীতিতে কাজে লাগানো হবে, কিন্তু একে আমাদের হাজার বছরের সংস্কৃতি, আবেগ এবং মুক্তিযুদ্ধের চেতনায় শিক্ষিত করা হবে।
+                </p>
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div class="card">
+                        <div class="text-4xl mb-4">🌱</div>
+                        <h3 class="text-xl font-bold mb-2">কৃষি ও অর্থনীতি</h3>
+                        <p class="text-gray-600">প্রযুক্তির ব্যবহারে উৎপাদন বৃদ্ধি এবং অর্থনৈতিক সমৃদ্ধি।</p>
+                    </div>
+                    <div class="card">
+                        <div class="text-4xl mb-4">❤️</div>
+                        <h3 class="text-xl font-bold mb-2">বাঙালি সংস্কৃতি ও আবেগ</h3>
+                        <p class="text-gray-600">প্রযুক্তিকে আমাদের ঐতিহ্য, উৎসব এবং মানবিক মূল্যবোধ শেখানো।</p>
+                    </div>
+                    <div class="card">
+                        <div class="text-4xl mb-4">🏥</div>
+                        <h3 class="text-xl font-bold mb-2">স্বাস্থ্যসেবা ও জীবনযাত্রা</h3>
+                        <p class="text-gray-600">সবার জন্য উন্নত স্বাস্থ্যসেবা এবং জীবনযাত্রার মান উন্নয়ন।</p>
+                    </div>
+                </div>
+                 <div class="mt-12 text-center max-w-3xl mx-auto">
+                     <p class="text-xl text-[#004225] font-semibold leading-relaxed p-6">
+                        "আমরা একটা স্মার্ট বাংলাদেশ গড়বো, শুধু আর্টিফিশিয়াল ইন্টেলিজেন্স দিয়ে নয়, আমাদের প্রাকৃতিক, আনন্দময়, মানবিক হৃদয় দিয়ে।"
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-[#004225] text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-2xl font-bold">জয় বাংলা, জয় বঙ্গবন্ধু।</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const trafficBtn = document.getElementById('trafficBtn');
+            const trafficAnswer = document.getElementById('trafficAnswer');
+            const foodBtn = document.getElementById('foodBtn');
+            const foodAnswer = document.getElementById('foodAnswer');
+
+            trafficBtn.addEventListener('click', () => {
+                if (trafficAnswer.style.display === 'none' || trafficAnswer.style.display === '') {
+                    trafficAnswer.style.display = 'block';
+                    trafficBtn.textContent = 'উত্তর লুকান';
+                } else {
+                    trafficAnswer.style.display = 'none';
+                    trafficBtn.textContent = 'এআই-এর সমাধান দেখুন';
+                }
+            });
+
+            foodBtn.addEventListener('click', () => {
+                if (foodAnswer.style.display === 'none' || foodAnswer.style.display === '') {
+                    foodAnswer.style.display = 'block';
+                    foodBtn.textContent = 'উত্তর লুকান';
+                } else {
+                    foodAnswer.style.display = 'none';
+                    foodBtn.textContent = 'এআই-এর সমাধান দেখুন';
+                }
+            });
+            
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
